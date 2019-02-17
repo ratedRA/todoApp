@@ -1,0 +1,72 @@
+{% load static from staticfiles %}
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}
+</style>
+</head>
+<body background="{% static 'images/beach.jpg' %}">
+<div class = "container">
+<div class = "row">
+<div class = "col-sm-6">
+	<div class = "row">
+<div class = "col-sm-4">
+</div>
+<div class="col-sm-8 ">
+<div class="panel panel-warning" style = "width:300px;margin-top: 50px;">
+      <div class="panel-heading text-center"><h2>Add items to your todo list</h2></div>
+      <div class="panel-body">
+    
+
+<form action = "/addTodo/" method = "post"> {% csrf_token %}
+	<input type = "text" name = "content" style = "margin-left:30px"/>
+
+	<!--<input type = "submit" value = "Add" />-->
+	<button type="submit" class="btn btn-primary btn-xs">Add</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-sm-6">
+<div class="panel panel-warning" style = "width:inherit;margin-top: 50px;">
+      <div class="panel-heading"><h1>Todo List</h1></div>
+      <div class="panel-body">
+<ul>
+	{% for todo_items in all_items %}
+	<li> {{ todo_items.content }} 
+		<form action = "/delTodo/{{todo_items.id}}" style = "display : inline;" method = "post"> {%csrf_token%}
+			<button type="submit" class="btn btn-danger btn-xs">Del</button>
+		</form>
+
+	</li>
+</br>
+	{% endfor %}
+</ul>
+	
+
+</div>
+</div>
+</div>
+</div>	
+</div>
+<div class="footer">
+  <p>info@meaman2863@gmail.com</p>
+</div>
+</body>
+</html>
